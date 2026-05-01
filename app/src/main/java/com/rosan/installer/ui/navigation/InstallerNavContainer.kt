@@ -2,7 +2,6 @@
 // Copyright (C) 2026 InstallerX Revived contributors
 package com.rosan.installer.ui.navigation
 
-import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -55,7 +54,6 @@ import com.rosan.installer.ui.page.main.settings.preferred.uninstaller.NewUninst
 import com.rosan.installer.ui.page.miuix.settings.config.apply.MiuixApplyPage
 import com.rosan.installer.ui.page.miuix.settings.config.edit.MiuixEditPage
 import com.rosan.installer.ui.page.miuix.settings.preferred.about.MiuixAboutPage
-import com.rosan.installer.ui.page.miuix.settings.preferred.about.MiuixBlendAboutPage
 import com.rosan.installer.ui.page.miuix.settings.preferred.about.ossLicensePage.MiuixOpenSourceLicensePage
 import com.rosan.installer.ui.page.miuix.settings.preferred.installer.MiuixInstallerGlobalSettingsPage
 import com.rosan.installer.ui.page.miuix.settings.preferred.installer.dialog.MiuixDialogSettingsPage
@@ -172,9 +170,7 @@ fun InstallerNavContainer(
                     }
                     entry<Route.About> {
                         if (uiState.useMiuix) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA)
-                                MiuixBlendAboutPage()
-                            else MiuixAboutPage(useBlur)
+                            MiuixAboutPage(useBlur)
                         } else {
                             if (isExpressive)
                                 NewAboutPage(useBlur)
