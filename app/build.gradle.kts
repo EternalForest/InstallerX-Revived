@@ -74,7 +74,7 @@ android {
         //   (e.g., "25.07.abc1234"), configured in productFlavors.
         // - Stable builds use the base versionName as-is (e.g., "25.07").
         // - versionCode must be incremented manually before each Stable release.
-        versionCode = 50
+        versionCode = 51
         versionName = baseVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -229,7 +229,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     implementation(libs.androidx.navigation3.runtime)
-    //implementation(libs.androidx.navigation3.ui)
+    // implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigationevent) {
         exclude(group = "androidx.navigation", module = "navigationevent-compose")
     }
