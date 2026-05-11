@@ -9,7 +9,6 @@ object BuildConfig {
     const val MIN_SDK = 26
     const val JDK_VERSION = 25
 
-    // You can also manage your base version code here if you want
     const val VERSION_CODE = 51
 }
 

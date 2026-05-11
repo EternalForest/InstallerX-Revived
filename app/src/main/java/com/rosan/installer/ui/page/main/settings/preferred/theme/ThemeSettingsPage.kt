@@ -326,7 +326,7 @@ fun ThemeSettingsPage(
                         )
                     }
                     // Conditional item for Live Activity
-                    item(visible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && uiState.showLiveActivity) {
+                    item(animatedVisibility = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && uiState.showLiveActivity) {
                         SwitchWidget(
                             icon = Icons.TwoTone.Colorize,
                             title = stringResource(R.string.theme_settings_live_activity_dynamic_color_follow_icon),
@@ -418,7 +418,7 @@ fun ThemeSettingsPage(
                 ) {
                     item { PredictiveBackAnimationWidget(uiState) { showPredictiveBackAnimationDialog = true } }
                     item(
-                        visible = uiState.predictiveBackAnimation == PredictiveBackAnimation.Scale ||
+                        animatedVisibility = uiState.predictiveBackAnimation == PredictiveBackAnimation.Scale ||
                                 uiState.predictiveBackAnimation == PredictiveBackAnimation.AOSP
                     ) {
                         PredictiveBackAnimationDirectionWidget(uiState) { showPredictiveBackExitDirectionDialog = true }
