@@ -242,6 +242,7 @@ class InstallerViewModel(
                 InstallerStage.InstallConfirm(
                     appLabel = details.appLabel,
                     appIcon = details.appIcon,
+                    packageName = details.packageName,
                     sessionId = details.sessionId,
                     isSelfSession = details.isSelfSession,
                     isOwnershipConflict = details.isOwnershipConflict,
@@ -358,6 +359,8 @@ class InstallerViewModel(
 
                     is InstallerStage.InstallChoice, is InstallerStage.Ready -> null
 
+                    is InstallerStage.InstallConfirm -> newStage.packageName
+
                     // All uninstall stages read directly from the latest uninstallInfo
                     is InstallerStage.UninstallReady,
                     is InstallerStage.Uninstalling,
@@ -390,7 +393,11 @@ class InstallerViewModel(
                 if (newPackageName != oldPackageName) {
 
                     if (newPackageName != null) {
-                        loadDisplayIcon(newPackageName)
+                        if (newStage is InstallerStage.InstallConfirm && newStage.appIcon != null) {
+                            _localState.update { it.copy(displayIcons = it.displayIcons + (newPackageName to newStage.appIcon.asImageBitmap())) }
+                        } else {
+                            loadDisplayIcon(newPackageName)
+                        }
                     }
 
                     if (_localState.value.viewSettings.useDynColorFollowPkgIcon) {
@@ -418,23 +425,22 @@ class InstallerViewModel(
                                 // [Log] Check if ViewModel successfully resolved the entity
                                 Timber.d("ExtractColorTrace: ViewModel getting color for pkg=$newPackageName. Resolved entityToInstall: $entityToInstall")
 
-                                val colorInt = getAppIconColor(
-                                    sessionId = session.id,
-                                    packageName = newPackageName,
-                                    entityToInstall = entityToInstall,
-                                    preferSystemIcon = _localState.value.viewSettings.preferSystemIconForUpdates
-                                )
+                                val colorInt = if (newStage is InstallerStage.InstallConfirm && newStage.appIcon != null) {
+                                    getAppIconColor(newStage.appIcon)
+                                } else {
+                                    getAppIconColor(
+                                        sessionId = session.id,
+                                        packageName = newPackageName,
+                                        entityToInstall = entityToInstall,
+                                        preferSystemIcon = _localState.value.viewSettings.preferSystemIconForUpdates
+                                    )
+                                }
                                 _localState.update { it.copy(seedColor = colorInt?.let { c -> Color(c) }) }
                             }
                         }
                     } else if (_localState.value.seedColor != null) {
                         _localState.update { it.copy(seedColor = null) }
                     }
-                }
-
-                // Icon loading logic: load only when the package name changes and is not null/empty
-                if (newPackageName != null && newPackageName != oldPackageName) {
-                    loadDisplayIcon(newPackageName)
                 }
 
                 autoInstallJob?.cancel()
