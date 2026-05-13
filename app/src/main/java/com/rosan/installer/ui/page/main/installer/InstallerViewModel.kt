@@ -92,6 +92,8 @@ class InstallerViewModel(
                 versionCompareInSingleLine = prefs.versionCompareInSingleLine,
                 sdkCompareInMultiLine = prefs.sdkCompareInMultiLine,
                 showOPPOSpecial = local.tempShowOPPOSpecial ?: prefs.showOPPOSpecial,
+                detectXposedModule = prefs.detectXposedModule,
+                quickOpenLSPosed = prefs.quickOpenLSPosed,
                 autoSilentInstall = prefs.autoSilentInstall,
                 labTapIconToShare = prefs.labTapIconToShare,
                 labShowFilePath = local.tempLabShowFilePath ?: prefs.labShowFilePath,
