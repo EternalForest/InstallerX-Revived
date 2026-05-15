@@ -159,7 +159,7 @@ fun HomePage(
             item {
                 SegmentedColumn(
                     title = stringResource(R.string.home_device_info_title),
-                    contentPadding = PaddingValues(top = 16.dp)
+                    contentPadding = PaddingValues(top = 16.dp, bottom = 8.dp)
                 ) {
                     item {
                         BaseWidget(
@@ -258,7 +258,7 @@ private fun StatCard(
 }
 
 @Composable
-fun InstallerStatusCard(
+private fun InstallerStatusCard(
     isActive: Boolean,
     isSystemApp: Boolean = false,
     useBlur: Boolean = false,

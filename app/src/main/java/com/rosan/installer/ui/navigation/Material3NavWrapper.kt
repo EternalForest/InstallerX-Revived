@@ -4,6 +4,7 @@ package com.rosan.installer.ui.navigation
 
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@ import com.rosan.installer.ui.theme.rememberMaterial3BlurBackdrop
 import kotlinx.coroutines.flow.map
 import org.koin.compose.koinInject
 
+@Immutable
 data class NavigationTab(
     val icon: ImageVector,
     val label: String
@@ -35,6 +37,7 @@ fun Material3MainPageWrapper(
 ) {
     val sharedState by sharedViewModel.state.collectAsStateWithLifecycle()
     val useBlur = uiState.useBlur
+    val useFloatingBottomBar = uiState.useAppleFloatingBar
     val backdrop = rememberMaterial3BlurBackdrop(useBlur)
 
     val configRepo = koinInject<ConfigRepository>()
@@ -90,6 +93,7 @@ fun Material3MainPageWrapper(
             mainPagerState = mainPagerState,
             tabs = tabs,
             useBlur = useBlur,
+            useFloatingBottomBar = useFloatingBottomBar,
             backdrop = backdrop
         )
     } else {
@@ -98,6 +102,7 @@ fun Material3MainPageWrapper(
             mainPagerState = mainPagerState,
             tabs = tabs,
             useBlur = useBlur,
+            useFloatingBottomBar = useFloatingBottomBar,
             backdrop = backdrop,
             isMedium = isMedium
         )

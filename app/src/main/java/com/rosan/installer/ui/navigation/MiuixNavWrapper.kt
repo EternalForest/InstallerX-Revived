@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.map
 import org.koin.compose.koinInject
 import top.yukonga.miuix.kmp.basic.NavigationItem
 import top.yukonga.miuix.kmp.basic.SnackbarHostState
+import top.yukonga.miuix.kmp.blur.rememberLayerBackdrop
 
 // Centralized complex layout logic to keep provider clean and readable
 @Composable
@@ -87,7 +88,7 @@ fun MiuixMainPageWrapper(
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Create separated backdrops for different blurred components
-    val floatingBackdrop = com.kyant.backdrop.backdrops.rememberLayerBackdrop()
+    val floatingBackdrop = rememberLayerBackdrop()
     val miuixBackdrop = rememberMiuixBlurBackdrop(useBlur)
 
     // Branch statically without layout delay traps
